@@ -27,9 +27,16 @@ async def create_product(payload: ProductCreate, db: AsyncSession = Depends(get_
 
 @router.get("", response_model=list[ProductRead])
 async def list_products(
-    skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
+    query: str = None,
+    skip: int = 0, 
+    limit: int = 100, 
+    db: AsyncSession = Depends(get_db)
 ) -> list[Product]:
-    result = await db.execute(select(Product).offset(skip).limit(limit))
+    stmt = select(Product)
+    if query:
+        stmt = select(Product).where(Product.name.ilike(f"%{query}%"))
+        
+    result = await db.execute(stmt.offset(skip).limit(limit))
     return list(result.scalars().all())
 
 
