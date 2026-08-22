@@ -1,0 +1,9 @@
+name: Delpoy project
+
+
+on: 
+    push:
+        branches: 
+            - main
+
+
