@@ -4,9 +4,9 @@ on: [push]
 
 
 jobs:
-    first_job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Say hello
-            run: echo "Hello, world!"
+  first_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello
+        run: echo "Hello, world!"
 
