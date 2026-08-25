@@ -1,6 +1,19 @@
 name: Hello world
 
-on: [push]
+on: 
+    push:
+        branches: 
+            - develop
+            - main
+    pull_request:
+      branches:
+        - main
+      types:
+        - opened
+        - synchronize
+    
+    schedule:
+      - cron: '*/5 * * * *'
 
 
 jobs:
@@ -22,6 +35,8 @@ jobs:
             python-version: '3.12'
         
         - name: Install dependencies
+          env:
+            tg_token: ${{secrets.TG_TOKEN}}
           run: |
             python -m pip install --upgrade pip
             pip install pytest
